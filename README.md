@@ -1,4 +1,4 @@
-How to use:
+How to use:\n
 Trigger bot: hold ALT key and aim on target
 Wallhack and radar bot: always on
 Aim assist and bunnyhop: INSERT/DELETE on/off (when you press left mouse key)
