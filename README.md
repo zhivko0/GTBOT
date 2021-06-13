@@ -5,5 +5,4 @@ Aim assist and bunnyhop: INSERT/DELETE on/off (press left mouse key)\
 No flashes/smokes: PG UP/PG DOWN on/off\
 Show enemys health: HOME button  
 
-How to download:\
-Email: zhivko@zhivko.org
+Enjoy!
