@@ -347,10 +347,10 @@ int main() {
 			int EntityTeam = RPM<int>(dwEntity + m_iTeamNum);
 
 			if (LocalTeam == EntityTeam) {
-				WPM<glowStructLocal>(dwGlowManager + (iGlowIndx * 0x38) + 0x4, glowLocal);
+				WPM<glowStructLocal>(dwGlowManager + (iGlowIndx * 0x38) + 0x8, glowLocal);
 			}
 			else if (LocalTeam != EntityTeam) {
-				WPM<glowStructEnemy>(dwGlowManager + (iGlowIndx * 0x38) + 0x4, glowEnm);
+				WPM<glowStructEnemy>(dwGlowManager + (iGlowIndx * 0x38) + 0x8, glowEnm);
 			}
 		}
 
