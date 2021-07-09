@@ -1,5 +1,3 @@
-!!!DEPRECATED!!!
-
 How to use:\
 Trigger bot: hold ALT key and aim on target\
 Wallhack and radar bot: always on\
