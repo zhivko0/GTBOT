@@ -14,12 +14,12 @@ uintptr_t dwSmokeCount;
 #define m_iTeamNum 0xF4
 #define m_iHealth 0x100
 #define m_bDormant 0xED
-#define m_iCrosshairId 0x11438
+#define m_iCrosshairId 0x11838
 #define m_bSpotted 0x93D
 #define m_dwBoneMatrix 0x26A8
 #define m_vecOrigin 0x138
 #define m_flFlashDuration 0x10470
-#define m_ArmorValue 0x113CC
+#define m_ArmorValue 0x117CC
 #define m_fFlags 0x104
 
 const int SCREEN_WIDTH = GetSystemMetrics(SM_CXSCREEN);
