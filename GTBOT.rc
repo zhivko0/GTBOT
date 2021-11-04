@@ -77,11 +77,11 @@ BEGIN
     BEGIN
         BLOCK "040204b0"
         BEGIN
-            VALUE "CompanyName", "zhivko"
+            VALUE "CompanyName", "zhivko.org"
             VALUE "FileDescription", "Cheat for CS:GO"
             VALUE "FileVersion", "1.0.0.3"
             VALUE "InternalName", "GTBOT.exe"
-            VALUE "LegalCopyright", "zhivko, Copyright (C) 2021"
+            VALUE "LegalCopyright", "zhivko.org, Copyright (C) 2021"
             VALUE "OriginalFilename", "GTBOT.exe"
             VALUE "ProductName", "GTBOT"
             VALUE "ProductVersion", "1.0.0.3"
