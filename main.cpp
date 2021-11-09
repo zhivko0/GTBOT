@@ -1,4 +1,3 @@
-//Must be compiled in mode Debug x86
 #include <iostream>
 #include <Windows.h>
 #include <TlHelp32.h>
@@ -33,6 +32,7 @@ DWORD bytesRead;
 HWND hwnd;
 HANDLE hProcess;
 HANDLE hAimassist;
+HANDLE hAimlock;
 int closest;
 
 uintptr_t GetModuleBaseAddress(const char* modName, DWORD procId) {
@@ -272,6 +272,17 @@ void FindClosestEnemyThread() {
 	}
 }
 
+void AimlockClosestEnemyThread() {
+	while (true) {
+		while (GetAsyncKeyState(0x12)) {
+			moduleBase = GetModuleBaseAddress("client.dll", procId);
+			vm = RPM<view_matrix_t>(moduleBase + dwViewMatrix);
+			Vector3 closestw2shead = WorldToScreen(get_head(getPlayer(closest)), vm);
+			if (closestw2shead.z >= 0.001f/*onscreen check*/) { SetCursorPos(closestw2shead.x, closestw2shead.y); }
+		}
+	}
+}
+
 int main() {
 
 	SetConsoleTitle(TEXT("GTBOT by zhivko..."));
@@ -290,6 +301,7 @@ int main() {
 	auto bytes = new uint8_t[client.modBaseSize];
 	ReadProcessMemory(hProcess, client.modBaseAddr, bytes, client.modBaseSize, &bytesRead); if (bytesRead != client.modBaseSize) throw;
 	hAimassist = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)FindClosestEnemyThread, 0, 0x00000004, 0);
+	hAimlock = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)AimlockClosestEnemyThread, 0, 0x00000004, 0);
 	uintptr_t jumpBuffer;
 	
 	dwLocalPlayer = FindPattern(client, bytes, "8D 34 85 ? ? ? ? 89 15 ? ? ? ? 8B 41 08 8B 48 04 83 F9 FF", 0x3, 0x4);//0x3 - offset, 0x4 - extra
@@ -321,7 +333,7 @@ int main() {
 		int flags = RPM<int>(getLocalPlayer() + m_fFlags);
 		
 		if (GetAsyncKeyState(0x01) & 1 && aimassist) {
-			if (closestw2shead.z >= 0.001f/*onscreen check*/) { SetCursorPos(closestw2shead.x, closestw2shead.y); }
+			if (closestw2shead.z >= 0.001f) { SetCursorPos(closestw2shead.x, closestw2shead.y); }
 		}
 
 		if (GetAsyncKeyState(0x12)) {
@@ -369,12 +381,14 @@ int main() {
 
 		if (GetAsyncKeyState(0x2D) && !aimassist) {
 			ResumeThread(hAimassist);
+			ResumeThread(hAimlock);
 			aimassist = true;
 			std::cout << "AIM ASSIST IS ENABLED\nTURN OFF \"RAW INPUT\" IN GAME SETTINGS\n";
 		}
 
 		if (GetAsyncKeyState(0x2E) && aimassist) {
 			SuspendThread(hAimassist);
+			SuspendThread(hAimlock);
 			aimassist = false;
 			system("cls");
 		}
